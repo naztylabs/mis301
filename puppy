@@ -1,0 +1,168 @@
+/*
+ * MIS 301 Assignment 1
+ * Task 3
+ * 
+ */
+
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.*;
+import javafx.stage.Stage;
+
+/**
+ *
+ * @author Tyler
+ */
+
+public class Task3 extends Application {
+    public static void main(String[] args) {
+        launch(args); //launch the scene when application is ran
+    }
+    
+    @Override
+    public void start(Stage primaryStage){
+      //create the objects for the puppy drawing    
+        primaryStage.setTitle("Puppy"); //Set the title of the window to "Puppy"
+
+        Rectangle sky = new Rectangle (0.0, -4.0, 592.0, 462.0); // Create the Sky for the window using x, y, w, h
+        sky.setStroke (Color.DODGERBLUE); //color the boarder of the sky dodger blue to match
+        sky.setStrokeWidth (1); //set stroke to 1 to minimize interference.
+        sky.setFill (Color.DODGERBLUE); //color the sky dodgerblue
+
+        Rectangle grass = new Rectangle (0.0, 320.0, 592.0, 142.0); // Create the Grass for the window using x, y, w, h
+        grass.setStroke (Color.DARKGREEN); //color the boarder of the grass dark green
+        grass.setStrokeWidth (1); //set stroke to 1 to minimize interference.
+        grass.setFill(Color.DARKGREEN); //fill the grass as dark green
+
+        Rectangle sunray1 = new Rectangle (76.0, 45.0, 80.0, 80.0); //create the first sunray for the sun using x, y, w, h
+        sunray1.setRotate (45.0); //rotate the sunray by 45 degrees
+        sunray1.setStroke(Color.ORANGE); //set the stroke color to match the fill color
+        sunray1.setStrokeWidth (1); //set stroke to 1 to minimize interference.
+        sunray1.setFill(Color.ORANGE); //fill the sunray with orange
+
+        Rectangle sunray2 = new Rectangle (76.0, 45.0, 80.0, 80.0); //create the second sunray for the sun using x, y, w, h
+        sunray2.setStroke(Color.ORANGE); //set the stroke color to match the fill color
+        sunray2.setStrokeWidth (1); //set stroke to 1 to minimize interference.
+        sunray2.setFill(Color.ORANGE); //fill the sunray with orange
+
+        Circle sun = new Circle (116, 85, 40); // create the sun using x, y, r
+        sun.setStroke (Color.YELLOW); //set the stroke color to match the fill color
+        sun.setStrokeWidth (1); //set stroke to 1 to minimize interference.
+        sun.setFill(Color.YELLOW); //fill the sun with a bright yellow
+
+        Rectangle tail = new Rectangle (230.0, 308.0, 80.0, 12.0); //create the tail for the puppy using x, y, w, h
+        tail.setStroke(Color.BURLYWOOD); //set the stroke color to match the fill color
+        tail.setStrokeWidth (1); //set stroke to 1 to minimize interference.
+        tail.setFill(Color.BURLYWOOD); //color the dogs tail a brown color that gives the pup some character
+
+        Rectangle body = new Rectangle (274.0, 185.0, 76.0, 138.0); //create the main body for the puppy using x, y, w, h
+        body.setRotate(3.8); //slightly rotate the body to show the puppy leaning while it sits
+        body.setStroke(Color.ANTIQUEWHITE); //set the stroke color to match the fill color
+        body.setStrokeWidth(1); //set stroke to 1 to minimize interference.
+        body.setFill(Color.ANTIQUEWHITE); //fill the body of the puppy with the specified color
+        body.setArcHeight(10); //rounded corners on the body of the puppy
+        body.setArcWidth(10); //rounded corners on the body of the puppy
+
+        Rectangle chest = new Rectangle (278.0, 217.0, 71.0, 59); //create the chest for the puppy using x, y, w, h
+        chest.setStroke(Color.BURLYWOOD); //set the stroke color to match the fill color
+        chest.setStrokeWidth(1); //set stroke to 1 to minimize interference.
+        chest.setFill(Color.BURLYWOOD); //fill the chest of the puppy with the specified color
+        chest.setArcHeight(10); //rounded corners on the chest of the puppy
+        chest.setArcWidth(10); //rounded corners on the chest of the puppy
+
+        Rectangle hindlegs = new Rectangle (295.0, 271.0, 30.0, 75.0); //create the hind legs for the puppy using x, y, w, h
+        hindlegs.setRotate(-90.0); //rotate the hind legs by 90 degrees so it looks like the pup is sitting on their butt
+        hindlegs.setArcHeight(10); //rounded corners on the hindlegs of the puppy
+        hindlegs.setArcWidth(10); //rounded corners on the hindlegs of the puppy
+        hindlegs.setStroke(Color.BURLYWOOD); //set the stroke color to match the fill color
+        hindlegs.setStrokeWidth(1); //set stroke to 1 to minimize interference.
+        hindlegs.setFill(Color.BURLYWOOD); //fill the hindlegs of the puppy with the specified color
+
+        Rectangle frontpaw1 = new Rectangle (284.0, 237.0, 30.0, 90.0); //create the left front paw for the puppy using x, y, w, h
+        frontpaw1.setArcHeight(5); //rounded corners on the front paw of the puppy
+        frontpaw1.setArcWidth(5); //rounded corners on the front paw of the puppy
+        frontpaw1.setStroke(Color.BLACK); //use black to help denote where the shape is from the rest of the dog
+        frontpaw1.setStrokeWidth(1); //set stroke to 1 to minimize interference.
+        frontpaw1.setFill(Color.ANTIQUEWHITE);  //fill the left front paw of the puppy with the specified color
+        
+        Rectangle frontpaw2 = new Rectangle (319.0, 237.0, 30.0, 90.0); //create the rigth front paw for the puppy using x, y, w, h
+        frontpaw2.setArcHeight(5); //rounded corners on the front paw of the puppy
+        frontpaw2.setArcWidth(5); //rounded corners on the front paw of the puppy
+        frontpaw2.setStroke(Color.BLACK); //use black to help denote where the shape is from the rest of the dog
+        frontpaw2.setStrokeWidth(1); //set stroke to 1 to minimize interference.
+        frontpaw2.setFill(Color.ANTIQUEWHITE); //fill the right front paw of the puppy with the specified color
+        
+        Ellipse outerear1 = new Ellipse (290.0, 150.0, 12.0, 25.0); //create the left outer ear for the puppy using x, y, radius x, radius y
+        outerear1.setStroke(Color.BLACK); //use black to help denote where the shape is from the rest of the dog
+        outerear1.setStrokeWidth(1); //set stroke to 1 to minimize interference.
+        outerear1.setFill(Color.ANTIQUEWHITE); //fill the outer ear of the puppy with the specified color
+        
+        Ellipse outerear2 = new Ellipse(328.0, 150.0, 12.0, 25.0); //create the right outer ear for the puppy using x, y, radius x, radius y
+        outerear2.setStroke(Color.BLACK); //use black to help denote where the shape is from the rest of the dog
+        outerear2.setStrokeWidth(1); //set stroke to 1 to minimize interference.
+        outerear2.setFill(Color.ANTIQUEWHITE); //fill the outer ear of the puppy with the specified color
+        
+        Ellipse innerear1 = new Ellipse (290.0, 156.0, 12.0, 25.0); //create the left inner ear for the puppy using x, y, radius x, radius y
+        innerear1.setStroke(Color.BLACK); //use black to help denote where the shape is from the rest of the dog
+        innerear1.setStrokeWidth(1); //set stroke to 1 to minimize interference.
+        innerear1.setFill(Color.BURLYWOOD); //fill the inner ear of the puppy with the specified color
+                
+        Ellipse innerear2 = new Ellipse (328.0, 156.0, 12.0, 25.0); //create the right inner ear for the puppy using x, y, radius x, radius y
+        innerear2.setStroke(Color.BLACK); //use black to help denote where the shape is from the rest of the dog
+        innerear2.setStrokeWidth(1); //set stroke to 1 to minimize interference.
+        innerear2.setFill(Color.BURLYWOOD); //fill the inner ear of the puppy with the specified color
+        
+        Circle head = new Circle (314.0, 181.0, 36.0); //create the head of the puppy using x, y, r
+        head.setStroke(Color.BLACK); //use black to help denote where the shape is from the rest of the dog
+        head.setStrokeWidth(1); //set stroke to 1 to minimize interference.
+        head.setFill(Color.ANTIQUEWHITE); //fill the head of the puppy with the specified color
+        
+        Arc paw1 = new Arc (302.0, 322.0, 18.0, 17.0, 45.0, 270.0); //create the left paw using x, y, radius x, radius y, start angle, length
+        paw1.setRotate(-90); //rotate the pacman opening to the top
+        paw1.setType(ArcType.ROUND); //set the arc to round to give the "pacman" look to the front paws
+        paw1.setStroke(Color.CHOCOLATE); //set the stroke color to match the fill color
+        paw1.setStrokeWidth(1); //set stroke to 1 to minimize interference.
+        paw1.setFill(Color.CHOCOLATE); //set the fill color to match the stroke color
+        
+        Arc paw2 = new Arc (337.0, 322.0, 18.0, 17.0, 45.0, 270.0); //create the right paw using x, y, radius x, radius y, start angle, length
+        paw2.setRotate(-90); //rotate the pacman opening to the top
+        paw2.setType(ArcType.ROUND); //set the arc to round to give the "pacman" look to the front paws
+        paw2.setStroke(Color.CHOCOLATE); //set the stroke color to match the fill color
+        paw2.setStrokeWidth(1); //set stroke to 1 to minimize interference.
+        paw2.setFill(Color.CHOCOLATE); //set the fill color to match the stroke color
+        
+        Circle outereye1 = new Circle (334.0, 168.0, 6.0); //create the outer left eye using x, y, r
+        outereye1.setStroke(Color.BLACK); //set the stroke color to match the fill color
+        outereye1.setStrokeWidth(1); //set stroke to 1 to minimize interference.
+        outereye1.setFill(Color.BLACK); //set the fill color to match the stroke color
+        
+        Circle outereye2 = new Circle (310.0, 168.0, 6.0); //create the outer right eye using x, y, r
+        outereye2.setStroke(Color.BLACK); //set the stroke color to match the fill color
+        outereye2.setStrokeWidth(1); //set stroke to 1 to minimize interference.
+        outereye2.setFill(Color.BLACK); //set the fill color to match the stroke color
+        
+        Circle innereye1 = new Circle (336.0, 168.0, 3.0); //create the inner left eye using x, y, r
+        innereye1.setStroke(Color.BLACK); //use black to help denote where the shape is from the rest of the dog
+        innereye1.setStrokeWidth(1); //set stroke to 1 to minimize interference.
+        innereye1.setFill(Color.CHOCOLATE); //fill the inner eye of the puppy with the specified color
+        
+        Circle innereye2 = new Circle (312.0, 168.0, 3.0); //create the inner right eye using x, y, r
+        innereye2.setStroke(Color.BLACK); //use black to help denote where the shape is from the rest of the dog
+        innereye2.setStrokeWidth(1); //set stroke to 1 to minimize interference.
+        innereye2.setFill(Color.CHOCOLATE); //fill the inner eye of the puppy with the specified color
+        
+        Ellipse nose = new Ellipse (334.0, 191.0, 26.0, 12.0); //create the nose of the puppy using x, y, radius x, radius y
+        nose.setStroke(Color.BLACK); //use black to help denote where the shape is from the rest of the dog
+        nose.setStrokeWidth(1); //set stroke to 1 to minimize interference.
+        nose.setFill(Color.CHOCOLATE); //fill the nose of the puppy with the specified color
+        
+        Group root = new Group (sky, grass, sunray1, sunray2, sun, tail, body, chest, hindlegs, frontpaw1, frontpaw2, outerear1, outerear2, innerear1, innerear2, head, paw1, paw2, outereye1, outereye2, innereye1, innereye2, nose); //define all objects needed for the scene
+        Scene scene = new Scene (root, 592.0, 462.0); //define the scene window
+        
+        primaryStage.setScene(scene); //set all the objects currently on the scene
+        
+        primaryStage.show(); //show the primary stage
+    }
+}
