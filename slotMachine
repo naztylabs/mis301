@@ -1,0 +1,468 @@
+/*
+Design and implement an application that simulates a simple slot
+machine which displays three fruit images (apple, orange and cherry) randomly
+chosen in three slot positions. Assume a player starts each session with 5
+tokens and that each spin costs one token. Display a button labeled “Spin” that,
+when clicked spins the wheels in the slot machine. Display the results of the
+spin in terms of fruit pictures, number of tokens won or lost, and the total
+number of tokens remaining for the session. Display a second button labeled
+“Cash Out” that, when clicked, indicates the session is over. When a session is
+over, ask the player if he/she wants to play again. Note: you do not have to
+implement the play again feature. If you do successfully, you will earn 2 extra
+credit points.
+*/
+
+// A simple slot machine game made by Tyler
+
+//Import all needed JavaFX and Java packages.
+import javafx.scene.*;
+import javafx.scene.image.*;
+import javafx.scene.layout.*;
+import javafx.geometry.*;
+import javafx.stage.Stage;
+import javafx.application.Application;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.event.*;
+import java.util.Random;
+import javafx.scene.control.TextArea;
+
+public class slotmachine extends Application {
+
+//Initialize a private integer called intvalue (initial value). This will be used later. 
+    private final int intvalue = 5;
+
+//Create value, coins, and the spinout variable. These will be used later
+    private int value = 0;
+    private int coins = 5 + value;
+    private int spinout;
+
+//Create the textfields for the application.
+    public TextField output = new TextField();
+    public TextField spinval = new TextField();
+    
+//Create the textarea for the amtcash Text box
+    public TextArea amtcash = new TextArea();
+    
+//Create the main ImageView for the Output
+    public ImageView iv = new ImageView();
+
+//Create the necessary flowpane and buttons for the application
+    public FlowPane pane;
+    public Button spinslots;
+    public Button cashout;
+    public Button startover;
+    
+    @Override
+    public void start(Stage primaryStage) {
+
+        //Add information for the SpinSlots button
+        spinslots = new Button();
+        spinslots.setPrefSize(115, 47);
+        spinslots.setText("Spin!");
+        spinslots.setOnAction(this::processButtonPress);
+        
+        //Add information for the Cashout button
+        cashout = new Button();
+        cashout.setPrefSize(115, 47);
+        cashout.setText("Cashout");
+        cashout.setOnAction(this::processButtonPress);
+        
+        //Add information for the Start Over button
+        startover = new Button();
+        startover.setPrefSize(115, 47);
+        startover.setText("Start Over");
+        startover.setOnAction(this::processButtonPress);
+        
+        //Set the text of the Output and Spinvalue TextFields
+        output.setText("Coins: " + coins);
+        spinval.setText("Spin result: " + value);
+        
+        //Start the FlowPane with all of the previously declared variables
+        pane = new FlowPane(output, spinval, iv, amtcash, spinslots, cashout, startover);
+        pane.setAlignment(Pos.CENTER);
+        pane.setStyle("-fx-background-color: pink");
+        pane.setHgap(20);
+        pane.setVgap(25);
+        
+        Scene scene = new Scene(pane, 500, 500);
+        
+        primaryStage.setTitle("Slot Machine");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+    
+    public void processButtonPress(ActionEvent event){
+        
+        //If the Spinslots button is pressed, execute the following
+        if(event.getSource() == spinslots){
+            
+            //If the player has less than one coin left, stop the game and disable all buttons except startover
+            if(coins < 1){
+                spinslots.setDisable(true);
+                cashout.setDisable(true);
+                amtcash.setText("You lose. Play again?");
+            }
+            
+            //If the player has 1 coin or more remaining, let them play the game
+            else{
+                
+                //Remove one coin from the player
+                coins--;
+                
+                //Reset the amtcash textfield from the previous spin to null
+                amtcash.setText("");
+                
+                //Generate a random number for the spinout switch statement
+                Random generator = new Random();
+                spinout = generator.nextInt(27);
+                
+                //Create a switch statement to manage every condition possible from the random generator
+                switch(spinout){
+                    
+                    case 0:
+                        //If Spinout is 0, output the Apple Apple Apple image and give the player 5 coins
+                        Image aaa = new Image("aaa.png");
+                        iv.setImage(aaa);
+                        value = 5;
+                        //Update the Coins variable with the new value information
+                        coins += value;
+                        //Update the TextFields with the new value information
+                        spinval.setText("Spin result: " + value);
+                        output.setText("Coins: " + coins);
+                        amtcash.setText("Nice!");
+                        break;
+                    
+                    case 1:
+                        //If Spinout is 1, output the Apple Apple Orange image and give the player 1 coins
+                        Image aao = new Image("aao.png");
+                        iv.setImage(aao);
+                        value = 1;
+                        //Update the Coins variable with the new value information
+                        coins += value;
+                        //Update the TextFields with the new value information
+                        spinval.setText("Spin result: " + value);
+                        output.setText("Coins: " + coins);
+                        break;
+                    
+                    case 2:
+                        //If Spinout is 2, output the Apple Orange Apple image and give the player 1 coin
+                        Image aoa = new Image("aoa.png");
+                        iv.setImage(aoa);
+                        value = 1;
+                        //Update the Coins variable with the new value information
+                        coins += value;
+                        //Update the TextFields with the new value information
+                        spinval.setText("Spin result: " + value);
+                        output.setText("Coins: " + coins);
+                        break;
+                    
+                    case 3:
+                        //If Spinout is 3, output the Orange Apple Apple image and give the player 1 coin
+                        Image oaa = new Image("oaa.png");
+                        iv.setImage(oaa);
+                        value = 1;
+                        //Update the Coins variable with the new value information
+                        coins += value;
+                        //Update the TextFields with the new value information
+                        spinval.setText("Spin result: " + value);
+                        output.setText("Coins: " + coins);
+                        break;
+                    
+                    case 4: 
+                        //If Spinout is 4, output the Apple Apple Cherry image and give the player 4 coins
+                        Image aac = new Image("aac.png");
+                        iv.setImage(aac);
+                        value = 4;
+                        //Update the Coins variable with the new value information
+                        coins += value;
+                        //Update the TextFields with the new value information
+                        spinval.setText("Spin result: " + value);
+                        output.setText("Coins: " + coins);
+                        break;
+                    
+                    case 5:    
+                        //If Spinout is 5, output the Apple Cherry Apple image and give the player 2 coins
+                        Image aca = new Image("aca.png");
+                        iv.setImage(aca);
+                        value = 2;
+                        //Update the Coins variable with the new value information
+                        coins += value;
+                        //Update the TextFields with the new value information
+                        spinval.setText("Spin result: " + value);
+                        output.setText("Coins: " + coins);
+                        break;
+                    
+                    case 6:                        
+                        //If Spinout is 6, output the Cherry Apple Apple image and give the player 3 coins
+                        Image caa = new Image("caa.png");
+                        iv.setImage(caa);
+                        value = 3;
+                        //Update the Coins variable with the new value information
+                        coins += value;
+                        //Update the TextFields with the new value information
+                        spinval.setText("Spin result: " + value);
+                        output.setText("Coins: " + coins);
+                        break;
+                    
+                    case 7:        
+                        //If Spinout is 7, output the Orange Orange Orange image and give the player 5 coins
+                        Image ooo = new Image("ooo.png");
+                        iv.setImage(ooo);
+                        value = -5;
+                        //Update the Coins variable with the new value information
+                        coins += value;
+                        //Update the TextFields with the new value information
+                        spinval.setText("Spin result: " + value);
+                        output.setText("Coins: " + coins);
+                        amtcash.setText("Aw, bad luck!");
+                        break;
+                    
+                    case 8:        
+                        //If Spinout is 8, output the Orange Apple Orange image and give the player 1 coin
+                        Image oao = new Image("oao.png");
+                        iv.setImage(oao);
+                        value = -1;
+                        //Update the Coins variable with the new value information
+                        coins += value;
+                        //Update the TextFields with the new value information
+                        spinval.setText("Spin result: " + value);
+                        output.setText("Coins: " + coins);
+                        amtcash.setText("Aw, bad luck!");
+                        break;
+                    
+                    case 9:        
+                        //If Spinout is 9, output the Orange Cherry Orange image and give the player 1 coin
+                        Image oco = new Image("oco.png");
+                        iv.setImage(oco);
+                        value = -1;
+                        //Update the Coins variable with the new value information
+                        coins += value;
+                        //Update the TextFields with the new value information
+                        spinval.setText("Spin result: " + value);
+                        output.setText("Coins: " + coins);
+                        amtcash.setText("Aw, bad luck!");
+                        break;
+                    
+                    case 10:  
+                        //If Spinout is 10, output the Cherry Cherry Cherry image and give the player 10 coins
+                        Image ccc = new Image("ccc.png");
+                        iv.setImage(ccc);
+                        value = 10;
+                        //Update the Coins variable with the new value information
+                        coins += value;
+                        //Update the TextFields with the new value information
+                        spinval.setText("Spin result: " + value);
+                        output.setText("Coins: " + coins);
+                        amtcash.setText("Jackpot!");
+                        break;
+                    
+                    case 11:        
+                        //If Spinout is 11, output the Cherry Cherry Apple image and give the player 4 coins
+                        Image cca = new Image("cca.png");
+                        iv.setImage(cca);
+                        value = 4;
+                        //Update the Coins variable with the new value information
+                        coins += value;
+                        //Update the TextFields with the new value information
+                        spinval.setText("Spin result: " + value);
+                        output.setText("Coins: " + coins);
+                        break;
+                    
+                    case 12:        
+                        //If Spinout is 12, output the Cherry Apple Cherry image and give the player 2 coins
+                        Image cac = new Image("cac.png");
+                        iv.setImage(cac);
+                        value = 2;
+                        //Update the Coins variable with the new value information
+                        coins += value;
+                        //Update the TextFields with the new value information
+                        spinval.setText("Spin result: " + value);
+                        output.setText("Coins: " + coins);
+                        break;
+                    
+                    case 13:       
+                        //If Spinout is 13, output the Apple Cherry Cherry image and give the player 3 coins
+                        Image acc = new Image("acc.png");
+                        iv.setImage(acc);
+                        value = 3;
+                        //Update the Coins variable with the new value information
+                        coins += value;
+                        //Update the TextFields with the new value information
+                        spinval.setText("Spin result: " + value);
+                        output.setText("Coins: " + coins);
+                        break;
+                    
+                    case 14:       
+                        //If Spinout is 14, output the Cherry Cherry Orange image and give the player 2 coins
+                        Image cco = new Image("cco.png");
+                        iv.setImage(cco);
+                        value = 2;
+                        //Update the Coins variable with the new value information
+                        coins += value;
+                        //Update the TextFields with the new value information
+                        spinval.setText("Spin result: " + value);
+                        output.setText("Coins: " + coins);
+                        break;
+                    
+                    case 15:       
+                        //If Spinout is 15, output the Cherry Orange Cherry image and give the player 2 coins
+                        Image coc = new Image("coc.png");
+                        iv.setImage(coc);
+                        value = 2;
+                        //Update the Coins variable with the new value information
+                        coins += value;
+                        //Update the TextFields with the new value information
+                        spinval.setText("Spin result: " + value);
+                        output.setText("Coins: " + coins);
+                        break;
+                    
+                    case 16:    
+                        //If Spinout is 16, output the Orange Cherry Cherry image and give the player 1 coin
+                        Image occ = new Image("occ.png");
+                        iv.setImage(occ);
+                        value = 1;
+                        //Update the Coins variable with the new value information
+                        coins += value;
+                        //Update the TextFields with the new value information
+                        spinval.setText("Spin result: " + value);
+                        output.setText("Coins: " + coins);
+                        break;
+
+                    case 17:        
+                        //If Spinout is 17, output the Apple Cherry Orange image
+                        Image aco = new Image("aco.png");
+                        iv.setImage(aco);
+                        value = 0;
+                        coins += value;
+                        spinval.setText("Spin result: " + value);
+                        output.setText("Coins: " + coins);
+                        break;
+                    
+                    case 18:      
+                        //If Spinout is 18, output the Apple Orange Cherry image 
+                        Image aoc = new Image("aoc.png");
+                        iv.setImage(aoc);
+                        value = 0;
+                        coins += value;
+                        spinval.setText("Spin result: " + value);
+                        output.setText("Coins: " + coins);
+                        break;
+                    
+                    case 19:        
+                        //If Spinout is 19, output the Apple Orange Orange image 
+                        Image aoo = new Image("aoo.png");
+                        iv.setImage(aoo);
+                        value = 0;
+                        coins += value;
+                        spinval.setText("Spin result: " + value);
+                        output.setText("Coins: " + coins);
+                        break;
+                    
+                    case 20:       
+                        //If Spinout is 20, output the Cherry Apple Orange image
+                        Image cao = new Image("cao.png");
+                        iv.setImage(cao); 
+                        value = 0;
+                        coins += value;
+                        spinval.setText("Spin result: " + value);
+                        output.setText("Coins: " + coins);
+                        break;
+                    
+                    case 21:       
+                        //If Spinout is 21, output the Cherry Orange Apple image 
+                        Image coa = new Image("coa.png");
+                        iv.setImage(coa);
+                        value = 0;
+                        coins += value;
+                        spinval.setText("Spin result: " + value);
+                        output.setText("Coins: " + coins);
+                        break;
+                    
+                    case 22:   
+                        //If Spinout is 22, output the Cherry Orange Orange image 
+                        Image coo = new Image("coo.png");
+                        iv.setImage(coo);
+                        value = 0;
+                        coins += value;
+                        spinval.setText("Spin result: " + value);
+                        output.setText("Coins: " + coins);
+                        break;
+                    
+                    case 23:   
+                        //If Spinout is 23, output the Orange Apple Cherry image 
+                        Image oac = new Image("oac.png");
+                        iv.setImage(oac);
+                        value = 0;
+                        coins += value;
+                        spinval.setText("Spin result: " + value);
+                        output.setText("Coins: " + coins);
+                        break;
+                    
+                    case 24:   
+                        //If Spinout is 24, output the Orange Cherry Apple image 
+                        Image oca = new Image("oca.png");
+                        iv.setImage(oca);
+                        value = 0;
+                        coins += value;
+                        spinval.setText("Spin result: " + value);
+                        output.setText("Coins: " + coins);
+                        break;
+                    
+                    case 25:     
+                        //If Spinout is 25, output the Orange Orange Apple image 
+                        Image ooa = new Image("ooa.png");
+                        iv.setImage(ooa);
+                        value = 0;
+                        coins += value;
+                        spinval.setText("Spin result: " + value);
+                        output.setText("Coins: " + coins);
+                        break;
+                    
+                    case 26:     
+                        //If Spinout is 26, output the Orange Orange Cherry image 
+                        Image ooc = new Image("ooc.png");
+                        iv.setImage(ooc);
+                        value = 0;
+                        coins += value;
+                        spinval.setText("Spin result: " + value);
+                        output.setText("Coins: " + coins);
+                        break;
+                }
+            }
+        }
+        
+        //If the Cashout button is pressed
+        if(event.getSource() == cashout){
+            //Display the amount of coins the user has cashed out
+            amtcash.setText("You've cashed out! Total: " + coins + " coins. " + 
+                    "Click Start Over to play again!");
+            //Disable the SpinSlots button so that the user has to start over.
+            spinslots.setDisable(true);
+            //Disable the Cashout button so that the user has to start over to play again.
+            cashout.setDisable(true);
+        
+        }
+        
+        //If the Start Over button is pressed
+        if(event.getSource() == startover){
+            
+            //Re-enable the SpinSlots and Cashout button
+            spinslots.setDisable(false);
+            cashout.setDisable(false);
+            //Reset all variables to their original conditions
+            
+            value = 0;
+            coins = intvalue;
+            amtcash.setText("");
+            output.setText("Coins: " + coins);
+            spinval.setText("");
+            iv.setImage(null);
+        
+        }
+    }
+    
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
