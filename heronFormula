@@ -1,0 +1,36 @@
+/*
+ * MIS 301 Assignment 1
+ * Task 1
+ * 
+ */
+
+import java.lang.Math.*;
+import java.util.Scanner;
+import java.text.DecimalFormat;
+
+/**
+ *
+ * @author Tyler Nazifi
+ */
+
+public class heronFormula {
+    
+    public static void main (String[] args) 
+    {
+        double a, b, c, s, t; //declare variables used in the math sequence
+        Scanner scan = new Scanner (System.in); //initialize the scanner
+        DecimalFormat fmt = new DecimalFormat ("0.000"); //identify and declare the variable format as 0.000
+        System.out.print("Hello, the program will enable you to find the area of a triangle "
+                + "via Heron's formula"); //tell the console what the program will do
+        System.out.println("");
+        System.out.println("Enter the length of side A"); //ask for input for the a variable
+        a = scan.nextDouble(); //store information in the a variable
+        System.out.println("Enter the length of side B"); //ask for input for the b variable
+        b = scan.nextDouble(); //store information in the b variable
+        System.out.println("Enter the length of the final side C"); //ask for input for the c variable
+        c = scan.nextDouble(); //store information in the c variable
+        s = (a + b + c)/2; //define s as the formula used to minimize errors
+        t = Math.sqrt(s*(s - a)*(s - b)*(s - c)); //perform the formula 
+        System.out.println("The area of the triangle is " + fmt.format(t)); //display the output
+    }
+}
