@@ -1,0 +1,267 @@
+/*
+Program Requirements: 
+One interesting application of two-dimensional arrays is magic squares. A magic square is a
+square matrix in which the sum of every row, every column, and both diagonals is the same.
+Magic squares have been studied for many years, and there are some particularly famous magic
+squares. Write a program to determine whether a series of square matrices are magic or not.
+The first line of input for each square specifies the size of the square (number of rows and
+columns). The square elements follow, one row per line. The end of the data is indicated by -1.
+Create a class called Square that has methods to construct a square of a specified size, to read in
+the elements of the square, to compute the sum of a row, to compute the sum of a column, to
+compute the sum of each diagonal, and to test to see if the square is magic. A driver should
+read in the dimension of each square, call the Square class to construct the square, print out the
+square and the various sums of rows, columns and diagonals; and prints out the result of the
+magic square test
+
+* A sample 2D array with 3 columns and 3 rows and the index numbers at each location i.e [i][j] or [row][col]
+* [0][0]  [0][1]  [0][2]
+* [1][0]  [1][1]  [1][2]
+* [2][0]  [2][1]  [2][2]
+
+*/
+
+/*
+ ************************************
+ * MIS 301 Programming Assignment 3 *
+ * @author Tyler                    *
+ ************************************
+ */
+
+import java.io.*;
+import java.nio.file.*;
+import java.util.Scanner;
+
+/**
+ * This program will determine whether a users predefined set of integers
+ * consists of a magic square. First it will read a users defined size of a 2D 
+ * array. Then, it will accept integer input to fill the array. After the array
+ * is filled, it will then display the 2D array in the console window. Once the
+ * array has been displayed back to the host, it will calculate the sum of all
+ * rows, columns, and diagonals and then determine whether or not the provided
+ * integers are a magic square. Once completed, it will repeat the process until
+ * the program is passed a -1 for square size. 
+ */
+
+public class Square {
+
+    private int size; 
+    private int [][] array;
+    BufferedReader reader;
+    
+    /**
+     * Create the 2D array called Square using size (Integer n) to determine the bounds
+     * @param size
+     * @throws java.io.IOException
+     */
+    public Square(int size) throws IOException {
+        this.reader = Files.newBufferedReader(Paths.get("C:\\Users\\tyler\\Documents\\input.txt"));
+        this.size = size;
+        array = new int[size][size];
+    }
+
+    /**
+     *Create a method called readSquare that inputs the integer list from the  
+     *scanner into the array while trimming out the white space. We use the parameter
+     *"scan" to call the scanner that is currently in use in the main method.
+     * @param scan
+     * @throws java.io.IOException
+     **/
+    public void readSquare(Scanner scan) throws IOException{
+            //Create a ForLoop that will evaluate the index, i, and increment until it hits the passed thru value n
+            for(int i = 0; i < this.size; i++){
+            //read n lines in
+            String inputString = scan.nextLine();    
+            //delete whitespace
+            String[] split = inputString.trim().split("\\s+");  
+            //input integers into the array
+            for(int j = 0; j < this.size; j++) {
+                //i stands for index; j stands for index; In this array it can be read as array[i][j]
+                array[i][j] = Integer.parseInt(split[j]);
+            }
+        }
+    }
+
+    /**
+     * Compute the sum of the rows in the Square
+     * @param row
+     * @return
+     */
+    public int rowSum(int row) {
+        //Declare and assume that starting sum is 0
+        int sum = 0;
+        //Create a for loop that analyzes the array and gathers all the integers in the first index. i.e. [0][0], [0][1], [0][2]...
+        for(int j = 0; j < this.size; j++){
+            sum += array[row][j];
+        }
+        //return the sum
+        return sum;
+    }
+    
+    /**
+     * Compute the sum of the columns in the Square
+     * @param col
+     * @return
+     */
+    public int colSum(int col) {
+        //Declare and assume that starting sum is 0
+        int sum = 0;
+        //Create a for loop that analyzes the array and gathers all the integers in the second index. i.e. [0][0], [1][0], [2][0]...
+        for(int i = 0; i < this.size; i++){
+            sum += array[i][col];
+        }
+        //return the sum
+        return sum;
+    }
+    
+    /**
+     * Compute the sum of the main diagonal
+     * @return
+     */
+    public int diagSumMain() {
+        int sum = 0;
+        //Create a for loop that analyzes the main diagonal integers in the 2D array. i.e. [0][0], [1][1], [2][2]...
+        for(int i = 0; i < this.size; i++){
+            sum += array[i][i];
+        }
+        return sum;
+    }
+    
+    /**
+     * Compute the sum of the other diagonal
+     * @return
+     */
+    public int diagSumOther() {
+        int sum = 0;
+        //Create a for loop that analyzes the other diagonal integers in the 2D array. i.e. [0][2], [1][1], [2][0]...
+        for(int i = 0; i < this.size; i++){
+            sum += array[i][this.size - i - 1];
+        }
+        return sum;
+    }
+    
+    /**
+     * Check to see if it is a magic square
+     * @return
+     */
+    public boolean isMagic() {
+        int sum = diagSumMain();
+        //Create an if statement that states: if the main diagonal sum does not equal the other diagonal sum return false
+        if (sum != diagSumOther())
+            //Return false, not a magic square
+            return false;
+        /*
+        Create a for loop that checks if the rowSum at index i does not equal the diagonal sum; 
+        or if the colSum at index i does not equal the diagonal sum: return false
+        */
+        for(int i = 0; i < this.size; i++){
+            if(sum != rowSum(i) || sum!= colSum(i))
+                //Return false, not a magic square
+                return false;
+        }
+        //If the above sums all match, return true. It is a magic square
+        return true;
+    }
+    
+    /**
+     * Convert the entire array into a string
+     * @return
+     */
+    @Override
+    public String toString() {
+        //Utilize the StringBuilder to convert the array into a string
+        StringBuilder sb = new StringBuilder();
+        //Create a for loop that analyzes the i index
+        for(int i = 0; i < this.size; i++){
+            //create a for loop that analyzes the j index
+            for(int j = 0; j < this.size; j++){
+               //Append the array into a datapoint in the string
+               sb.append(array[i][j]);
+               //create a tab in between data for neatness
+               sb.append("\t");
+            }
+            //Return a new line after the completed row has been appended
+            sb.append("\r\n");
+        }
+        //Returns a string representing the data in the array
+        return sb.toString();
+    }
+    
+    /**
+     * Launch the program and receive inputs
+     * @param args
+     * @throws java.io.IOException
+     * 
+     * 
+     */
+    public static void main (String [] args) throws IOException{
+        //Set the first Square number to 1
+        BufferedReader br = Files.newBufferedReader(Paths.get("C:\\Users\\tyler\\Documents\\input.txt"));
+        int squareNum = 1;
+        //Initialize a scanner to read the file
+        Scanner scan = new Scanner(br);
+        //Initiate a while loop which cancels on -1
+        while (true) {
+            //Ask for a size, this will be given by the input file
+            System.out.println("Please enter the size of the square. To quit, input -1");
+            //Integer n will be used for the size of the Square
+            int n = scan.nextInt();
+            
+            //Cancel the program when -1 is passed
+            if(n == -1){
+                br.close();
+                scan.close();
+                System.out.println("The system has been passed a -1. The program will terminate.");
+                return;
+            }
+
+            //Scan the next line into the program
+            scan.nextLine();
+            
+            //Create a new Square with size of Integer n
+            Square square = new Square(n);
+            System.out.println("Filling a Square with size: " + n);
+            
+            //Ask for data to input into the array
+            System.out.println("Please enter the elements of the square one row at time");
+            
+            //Scan elements passed thru into the array
+            square.readSquare(scan);
+            
+            //Print out results starting with the Square Number
+            System.out.println("****Square: " + squareNum + "****");
+            
+            //Print out the array for the reader to see the number input
+            System.out.println(square.toString());
+            
+            //Show the sums for every row in the array
+            for(int i = 0; i < n; i++){
+               System.out.println("Sum of row " + i + ": " + square.rowSum(i));
+            }
+            
+            //Show the sums for every column in the array
+            for(int i = 0; i < n; i++){
+               System.out.println("Sum of column " + i + ": " + square.colSum(i));
+            }
+            
+            //Show the sum for the main diagonal in the array
+            System.out.println("Sum of the main diagonal: " + square.diagSumMain());
+            
+            //Show the sum for the other diagonal in the array
+            System.out.println("Sum of the other diagonal: " + square.diagSumOther());
+            
+            //If the isMagic() Boolean is true then display this output
+            if(square.isMagic())
+                System.out.println("This is a magic square!");
+            
+            //If the isMagic() Boolean is false then display this output
+            else
+                System.out.println("This is not a magic square.");
+            
+            //Increase the Square Number by 1
+            squareNum++;
+
+            //Create a gap space between the next Square input
+            System.out.println();
+        }
+    }
+}
