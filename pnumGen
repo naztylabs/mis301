@@ -1,0 +1,29 @@
+/*
+ * MIS 301 Assignment 1
+ * Task 2
+ * 
+ */
+
+import java.util.Random;
+
+/**
+ *
+ * @author Tyler Nazifi
+ */
+public class pnumGen {
+    public static void main (String[] args) 
+    {
+        int a, b, c, d, e; //initialize integers used for the phone number
+        Random generator = new Random();
+        System.out.print("Hello, this program will generate a random phone number"); //tell the host what the program will do
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        a = generator.nextInt(7) + 1; // # value, cant be 8 or 9, value cannot be 0
+        b = generator.nextInt(8); // # value, cant be 8 or 9
+        c = generator.nextInt(8); // # value, cant be 8 or 9
+        d = generator.nextInt(642) + 100; // ### value, cannot be greater than 742
+        e = generator.nextInt(8999) + 1000; // #### value, no restrictions
+        System.out.println("A random phone number: " + a + b + c + "-" + d + "-" + e); //output the phone number as abc-d-e 
+    }
+}
