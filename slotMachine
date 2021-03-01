@@ -12,7 +12,7 @@ implement the play again feature. If you do successfully, you will earn 2 extra
 credit points.
 */
 
-// A simple slot machine game made by Tyler
+// A simple slot machine game made by Nazty_Labs
 
 //Import all needed JavaFX and Java packages.
 import javafx.scene.*;
