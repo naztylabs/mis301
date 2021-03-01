@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author Tyler
+ * @author Nazty_Labs
  */
 
 public class Task3 extends Application {
